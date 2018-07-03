@@ -3,15 +3,15 @@ import sys
 
 
 # Solution for Part 1
-def part1(lambda_, xdata, ydata):
-    dim = xdata.shape[1]
-    temp = lambda_*np.eye(dim) + xdata.T.dot(xdata)
-    w_rr = (np.linalg.inv(temp)).dot(xdata.T.dot(ydata))
+def part1(lambda_, x_train, y_train):
+    dim = x_train.shape[1]
+    temp = lambda_*np.eye(dim) + x_train.T.dot(x_train)
+    w_rr = (np.linalg.inv(temp)).dot(x_train.T.dot(y_train))
     return w_rr
 
 
 # Solution for Part 2
-def part2(lambda_, sigma2, xdata, ydata, xtest):
+def part2(lambda_, sigma2, x_train, y_train, x_test):
 
     pass
 
