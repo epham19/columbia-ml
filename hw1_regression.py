@@ -3,16 +3,16 @@ import sys
 
 
 # Solution for Part 1
-def part1(varlambda, varsigma2, xvalues, yvalues):
-    # Input : Arguments to the function
-    # Return : wRR, Final list of values to write in the file
-    pass
+def part1(lambda_, xdata, ydata):
+    dim = xdata.shape[1]
+    temp = lambda_*np.eye(dim) + xdata.T.dot(xdata)
+    w_rr = (np.linalg.inv(temp)).dot(xdata.T.dot(ydata))
+    return w_rr
 
 
 # Solution for Part 2
-def part2(varlambda, varsigma2, xvalues, yvalues, xtest):
-    # Input : Arguments to the function
-    # Return : active, Final list of values to write in the file
+def part2(lambda_, sigma2, xdata, ydata, xtest):
+
     pass
 
 
