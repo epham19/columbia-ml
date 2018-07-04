@@ -33,7 +33,7 @@ def part2(lambda_, sigma2, x_train, y_train, x_test):
 
     new_var, new_mean, old_xx, old_xy = update_posterior(lambda_, sigma2, x_train, dim, y_train, old_xx, old_xy)
 
-    wrr = new_mean
+    w_rr = new_mean
 
     # Create 1-based indexes
     indices = list(range(x_test.shape[0]))
@@ -46,7 +46,7 @@ def part2(lambda_, sigma2, x_train, y_train, x_test):
 
         # Update x and y values
         x_train = x_test[row_largest, :]
-        y_train = x_train.dot(wrr)
+        y_train = x_train.dot(w_rr)
 
         actual_row = indices[row_largest]
         active.append(actual_row)
@@ -58,7 +58,7 @@ def part2(lambda_, sigma2, x_train, y_train, x_test):
         # Update posterior distribution
         new_var, new_mean, old_xx, old_xy = update_posterior(lambda_, sigma2, x_train, dim, y_train, old_xx, old_xy)
 
-        wrr = new_mean
+        w_rr = new_mean
 
     # Create 1-based indexes
     active = [i + 1 for i in active]
