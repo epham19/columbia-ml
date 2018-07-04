@@ -77,7 +77,8 @@ def main():
     np.savetxt("wRR_" + str(lambda_input) + ".csv", wrr, delimiter="\n")
 
     active = part2(lambda_input, sigma2_input, x_train, y_train, x_test)
-    np.savetxt("active_" + str(lambda_input) + "_" + str(int(sigma2_input)) + ".csv", np.array(active).reshape(1, np.array(active).shape[0]), delimiter=",", fmt='%d')
+    np.savetxt("active_" + str(lambda_input) + "_" + str(int(sigma2_input)) + ".csv",
+               np.array(active).reshape(1, np.array(active).shape[0]), delimiter=",", fmt='%d')
 
 
 if __name__ == "__main__":
