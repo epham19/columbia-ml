@@ -10,18 +10,17 @@ def part1(lambda_, x_train, y_train):
     return w_rr
 
 
-def update_posterior(lambda_, sigma2, x_train, dim, y_train, oldxx, oldxy):
-    # Lecture 5, Slide 16
-    oldxx = x_train.T.dot(x_train) + oldxx
-    oldxy = x_train.dot(y_train) + oldxy
+def update_posterior(lambda_, sigma2, x_train, dim, y_train, old_xx, old_xy):
+    old_xx = x_train.T.dot(x_train) + old_xx
+    old_xy = x_train.dot(y_train) + old_xy
 
-    var_inv = lambda_ * np.eye(dim) + (1 / varNum) * oldAutoCorr
-    cov = np.linalg.inv(covInv)
+    new_var_inv = lambda_ * np.eye(dim) + (1 / sigma2) * old_xx
+    new_var = np.linalg.inv(new_var_inv)
 
-    temp1 = lambdaNum * varNum * np.eye(dim) + oldAutoCorr
-    mean = (np.linalg.inv(temp1)).dot(oldCrossCorr)
+    temp = lambda_ * sigma2 * np.eye(dim) + old_xx
+    new_mean = (np.linalg.inv(temp)).dot(old_xy)
 
-    return cov, mean, oldAutoCorr, oldCrossCorr
+    return new_var, new_mean, old_xx, old_xy
 
 
 # Solution for Part 2
