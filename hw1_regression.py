@@ -10,8 +10,25 @@ def part1(lambda_, x_train, y_train):
     return w_rr
 
 
+def update_posterior(lambda_, sigma2, x_train, dim, y_train, oldxx, oldxy):
+    # Lecture 5, Slide 16
+    oldxx = x_train.T.dot(x_train) + oldxx
+    oldxy = x_train.dot(y_train) + oldxy
+
+    var_inv = lambda_ * np.eye(dim) + (1 / varNum) * oldAutoCorr
+    cov = np.linalg.inv(covInv)
+
+    temp1 = lambdaNum * varNum * np.eye(dim) + oldAutoCorr
+    mean = (np.linalg.inv(temp1)).dot(oldCrossCorr)
+
+    return cov, mean, oldAutoCorr, oldCrossCorr
+
+
 # Solution for Part 2
 def part2(lambda_, sigma2, x_train, y_train, x_test):
+    dim = x_train.shape[1]
+    active = []
+
 
     pass
 
@@ -23,7 +40,7 @@ def main():
     y_train = np.genfromtxt(sys.argv[4])
     x_test = np.genfromtxt(sys.argv[5], delimiter=",")
 
-    wrr = part1(lambda_input, sigma2_input, x_train, y_train)
+    wrr = part1(lambda_input, x_train, y_train)
     np.savetxt("wRR_" + str(lambda_input) + ".csv", wrr, delimiter="\n")  # write output to file
 
     active = part2(lambda_input, sigma2_input, x_train, y_train, x_test)
