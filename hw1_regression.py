@@ -42,28 +42,26 @@ def part2(lambda_, sigma2, x_train, y_train, x_test):
     for i in range(0, 10):
         # Pick x_0 for which sigma2_0 is largest
         var_matrix = (x_test.dot(new_var)).dot(x_test.T)
+        row_largest = np.argmax(var_matrix.diagonal())
 
+        # Update x and y values
+        x_train = x_test[row_largest, :]
+        y_train = x_train.dot(wrr)
 
+        actual_row = indices[row_largest]
+        active.append(actual_row)
 
-        row = np.argmax(varMatrix.diagonal())
-        data = dataTest[row, :]
+        # Remove x_0
+        x_test = np.delete(x_test, row_largest, axis=0)
+        indices.pop(row_largest)
 
-        label = data.dot(wRR)
-
-        actualRow = indices[row]
-        active.append(actualRow)
-
-        dataTest = np.delete(dataTest, (row), axis=0)
-        indices.pop(row)
         # Update posterior distribution
-        cov, mean, oldAutoCorr, oldCrossCorr = update_posterior(lambdaNum, varNum, data, dim, label, oldAutoCorr,
-                                                               oldCrossCorr)
+        new_var, new_mean, old_xx, old_xy = update_posterior(lambda_, sigma2, x_train, dim, y_train, old_xx, old_xy)
 
-        # Lecture 5, slide 9
-        wRR = mean
+        wrr = new_mean
 
-    # 1-based indexes to pass Vocareum
-    active = [j + 1 for j in active]
+    # Create 1-based indexes
+    active = [i + 1 for i in active]
     return active
 
 
