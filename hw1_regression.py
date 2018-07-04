@@ -72,12 +72,12 @@ def main():
     y_train = np.genfromtxt(sys.argv[4])
     x_test = np.genfromtxt(sys.argv[5], delimiter=",")
 
+    # write output to file
     wrr = part1(lambda_input, x_train, y_train)
-    np.savetxt("wRR_" + str(lambda_input) + ".csv", wrr, delimiter="\n")  # write output to file
+    np.savetxt("wRR_" + str(lambda_input) + ".csv", wrr, delimiter="\n")
 
     active = part2(lambda_input, sigma2_input, x_train, y_train, x_test)
-    np.savetxt("active_" + str(lambda_input) + "_" + str(int(sigma2_input)) + ".csv", active,
-               delimiter=",")  # write output to file
+    np.savetxt("active_" + str(lambda_input) + "_" + str(int(sigma2_input)) + ".csv", np.array(active).reshape(1, np.array(active).shape[0]), delimiter=",", fmt='%d')
 
 
 if __name__ == "__main__":
