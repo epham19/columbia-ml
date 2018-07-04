@@ -12,7 +12,7 @@ def part1(lambda_, x_train, y_train):
 
 def update_posterior(lambda_, sigma2, x_train, dim, y_train, old_xx, old_xy):
     old_xx = x_train.T.dot(x_train) + old_xx
-    old_xy = x_train.dot(y_train) + old_xy
+    old_xy = x_train.T.dot(y_train) + old_xy
 
     new_var_inv = lambda_ * np.eye(dim) + (1 / sigma2) * old_xx
     new_var = np.linalg.inv(new_var_inv)
