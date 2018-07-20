@@ -1,22 +1,30 @@
+# This script implements a K-class Bayes classifier to compute the probability
+# of a new data point belonging to each of the K-class using the Gaussian class conditional densities
+
 from __future__ import division
 import numpy as np
 import sys
 
 
 def class_prior(x_train, y_train):
+    """Derive the maximum likelihood updates for the class prior probability vector"""
     length = x_train.shape[0]
     class_label, count = np.unique(y_train, return_counts=True)
+
+    # Compute MLE
     class_prob = (count / float(length)).T
     return class_prob
 
 
 def class_cond_density(x_train, y_train, num_classes):
+    """Compute the class-specific Gaussian mean and covariance"""
     dim = x_train.shape[1]
 
     # Initialise covariance and means
     cov = np.zeros((dim, dim, num_classes))
     mean = np.zeros((num_classes, dim))
 
+    # Compute empirical MLE mean and covariance of class y
     for i in range(num_classes):
         x_i = x_train[(y_train == i)]
         mean[i] = np.mean(x_i, axis=0)
