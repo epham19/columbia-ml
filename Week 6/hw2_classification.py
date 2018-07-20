@@ -61,13 +61,13 @@ def main():
     y_train = np.genfromtxt(sys.argv[2])
     x_test = np.genfromtxt(sys.argv[3], delimiter=",")
 
-    num_classes = 10
+    num_classes = 6
 
     class_prob = class_prior(x_train, y_train)
 
-    mean, cov = class_cond_density(x_test, y_train, num_classes)
+    mean, cov = class_cond_density(x_train, y_train, num_classes)
 
-    final_outputs = plugin_classifier(x_train, class_prob, mean, cov, num_classes)
+    final_outputs = plugin_classifier(x_test, class_prob, mean, cov, num_classes)
 
     # write output to file
     np.savetxt("probs_test.csv", final_outputs, delimiter=",")
