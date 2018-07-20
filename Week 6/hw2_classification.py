@@ -57,11 +57,13 @@ def plugin_classifier(x_test, class_prob, mean, cov, num_classes):
 
 
 def main():
+    # Extract train and test data
     x_train = np.genfromtxt(sys.argv[1], delimiter=",")
     y_train = np.genfromtxt(sys.argv[2])
     x_test = np.genfromtxt(sys.argv[3], delimiter=",")
 
-    num_classes = 6
+    # Input no of K classes to predict
+    num_classes = 10
 
     class_prob = class_prior(x_train, y_train)
 
