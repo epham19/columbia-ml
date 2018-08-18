@@ -10,14 +10,21 @@ def kmeans(x_data):
     num_clusters = 5
     num_iteration = 10
     length = x_data.shape[0]
+
+    # Create cluster assignment vector
     c = np.zeros(length)
+
+    # Initialize mu with a uniform random selection of data points
     indices = np.random.randint(0, length, size=num_clusters)
     mu = x_data[indices]
 
     for i in range(num_iteration):
+        # Update cluster assignments c_i
         for i_, x_i in enumerate(x_data):
             temp1 = np.linalg.norm(mu - x_i, 2, 1)
             c[i_] = np.argmin(temp1)
+
+        # Update cluster mu
         n = np.bincount(c.astype(np.int64), None, num_clusters)
         for k in range(num_clusters):
             indices = np.where(c == k)[0]
